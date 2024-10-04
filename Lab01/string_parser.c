@@ -25,22 +25,18 @@ int count_token (char* buf, const char* delim)
 	*			c.	account NULL for the last token
 	*	#3. return the number of token (note not number of delimeter)
 	*/
-	
-	char *str1, *str2, *token, *sub_token;
-	char *saveptr1, *saveptr2;
-	int count;
 
-	for (str1 = buf; ;str1 = NULL) {
-		token = strtok_r(str1, delim, &saveptr1);
-		if (token == NULL)
+	char *str, *token, *saveptr;
+	int count = 0;
+
+	//check for null string
+
+	for (str = buf; ;str = NULL) {
+		token = strtok_r(str, delim, &saveptr);
+		if (token == NULL) {
 			break;
-
-		for (str2 = token; ; str2 = NULL) {
-			sub_token = strtok_r(str2, " ", &saveptr2);
-			if (sub_token == NULL)
-				break;
-			count++;
 		}
+		count++;
 	}
 	return count;
 }
