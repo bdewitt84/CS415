@@ -40,7 +40,10 @@ int count_token (char* buf, const char* delim)
 		if (token == NULL) {
 			break;
 		}
-		count++;
+		if (strlen(token) > 0) {
+			count++;
+		}
+		// count++;
 	}
 
 	// return the number of token
