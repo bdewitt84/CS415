@@ -26,7 +26,7 @@ int count_token (char* buf, const char* delim)
 	*	#3. return the number of token (note not number of delimeter)
 	*/
 
-	char *str, *token, *saveptr;
+	char *str, *token, *saveptr1, *saveptr2, *saveptr3;
 	int count = 0;
 
 	//check for null string
@@ -36,7 +36,9 @@ int count_token (char* buf, const char* delim)
 
 	// iterate through string counting tokens
 	for (str = buf; ;str = NULL) {
-		token = strtok_r(str, delim, &saveptr);
+		token = strtok_r(str, "\n", &saveptr1);
+		token = strtok_r(str, "\r", &saveptr2);
+		token = strtok_r(str, delim, &saveptr3);
 		if (token == NULL) {
 			break;
 		}
@@ -72,11 +74,13 @@ command_line str_filler (char* buf, const char* delim) {
     result.num_token = num_token;
     result.command_list = malloc((num_token + 1) * sizeof(char*));
 
-    char *str, *token, *saveptr;
+    char *str, *token, *saveptr1, *saveptr2, *saveptr3;
     int i = 0;
     
     for (str = buf; ; str = NULL) {
-        token = strtok_r(str, delim, &saveptr);
+	token = strtok_r(str, "\n", &saveptr1);
+	token = strtok_r(str, "\r", &saveptr2);
+        token = strtok_r(str, delim, &saveptr3);
         if (token == NULL) {
             break;
         }
